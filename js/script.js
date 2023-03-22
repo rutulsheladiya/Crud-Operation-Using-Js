@@ -5,10 +5,10 @@ let productImg = document.getElementById("productimage")
 let url = ""
 let validateForm = true
 let pid = document.getElementById("productid").value
-
+let backBtn = document.getElementById("backbtn")
+let mainTable = document.getElementById("maintable")
 
 document.getElementById("btnsubmit").addEventListener('click', function (e) {
-
     if (validation()) {
         let productId = document.getElementById("productid").value;
         let productName = document.getElementById("productname").value
@@ -76,6 +76,12 @@ function fetchData(updateid) {
     productImg.classList.remove("d-none")
     btnSubmit.classList.add("d-none")
     updateBtnClass.classList.remove("d-none")
+    backBtn.setAttribute("onclick",`goback()`)
+    mainTable.classList.add("d-none")
+
+}
+function goback(){
+    window.location.reload()
 }
 
 // for update data
@@ -90,13 +96,26 @@ function updateproduct(uid) {
         btnSubmit.classList.remove("d-none");
         productImg.classList.add("d-none")
         document.getElementById("productid").readOnly = false;
+        mainTable.classList.remove("d-none")
         getproduct()
     }
 }
 
 // for delete function
 function deleteData(deleteid) {
-    localStorage.removeItem(deleteid);
+    swal({
+        title: "Are you sure?",
+        text: "You want to delete this data!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            localStorage.removeItem(deleteid);
+          window.location.reload()
+        }
+      });
     getproduct()
 }
 
@@ -106,7 +125,11 @@ function validation() {
         swal("Oops", "Please Enter Product Id.", "error");
         return false;
 
+    }else if (!/^[0-9]+$/.test(document.getElementById("productid").value)) {
+        swal("Oops", "Please Enter Numeric Id.", "error");
+        return false;
     }
+
     if (document.getElementById("productname").value.trim() == "") {
         swal("Oops", "Please Enter Product Name.", "error");
         return false;
@@ -138,7 +161,14 @@ function validation() {
         swal("Oops", "Please Enter Valid Image (.jpg,.png,.jpeg,.gif)", "error");
         return false;
     }
+
+    let data1=localStorage.getItem(document.getElementById("productid").value);
+    if (data1){
+        swal("Oops", "You Can not insert this data because this key is alredy exist.", "error");
+        return false;
+    }
     return true;
+    
 }
 
 // function for validation at update time
