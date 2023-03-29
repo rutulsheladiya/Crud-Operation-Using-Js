@@ -159,7 +159,7 @@ function validation() {
     }
 
     if (document.getElementById("productname").value.trim() == "") {
-        swal("Oops", "Please Enter Product Name at insert time.", "error");
+        swal("Oops", "Please Enter Product Name.", "error");
         return false;
     } else if (!/^[a-zA-Z]+$/.test(document.getElementById("productname").value)) {
         swal("Oops", "Please Enter Valid Product Name.", "error");
