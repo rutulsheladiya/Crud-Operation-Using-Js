@@ -76,17 +76,17 @@ function fetchData(updateid) {
     productImg.classList.remove("d-none")
     btnSubmit.classList.add("d-none")
     updateBtnClass.classList.remove("d-none")
-    backBtn.setAttribute("onclick",`goback()`)
+    backBtn.setAttribute("onclick", `goback()`)
     mainTable.classList.add("d-none")
 
 }
-function goback(){
+function goback() {
     window.location.reload()
 }
 
 // for update data
 function updateproduct(uid) {
-    if (updatevalidation()) {
+    if (validation()) {
         let productName = document.getElementById("productname").value
         let productPrice = document.getElementById("productprice").value
         let productDesc = document.getElementById("productdesc").value
@@ -109,99 +109,74 @@ function deleteData(deleteid) {
         icon: "warning",
         buttons: true,
         dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-            localStorage.removeItem(deleteid);
-          window.location.reload()
-        }
-      });
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                localStorage.removeItem(deleteid);
+                window.location.reload()
+            }
+        });
     getproduct()
 }
 
 // function for validation at insert time
 function validation() {
-    if (document.getElementById("productid").value.trim() == "") {
-        swal("Oops", "Please Enter Product Id.", "error");
-        return false;
+    if (updateBtnClass.classList.contains("d-none")) {
 
-    }else if (!/^[0-9]+$/.test(document.getElementById("productid").value)) {
-        swal("Oops", "Please Enter Numeric Id.", "error");
-        return false;
-    }
+        let data1 = localStorage.getItem(document.getElementById("productid").value);
+        if (data1) {
+            swal("Oops", "You Can not insert this data because this key is already exist.", "error");
+            return false;
+        }
 
-    if (document.getElementById("productname").value.trim() == "") {
-        swal("Oops", "Please Enter Product Name.", "error");
-        return false;
-    } else if (!/^[a-zA-Z]+$/.test(document.getElementById("productname").value)) {
-        swal("Oops", "Please Enter Valid Product Name.", "error");
-        return false;
-    }
+        if (document.getElementById("productid").value.trim() == "") {
+            swal("Oops", "Please Enter Product Id.", "error");
+            return false;
 
-    const price = document.getElementById("productprice").value
-    if (price.trim() == "") {
-        swal("Oops", "Please Enter Product Price.", "error");
-        return false;
-    } else if (isNaN(price)) {
-        swal("Oops", "Please Enter Valid Price.", "error");
-        return false;
-    }
+        } else if (!/^[0-9]+$/.test(document.getElementById("productid").value)) {
+            swal("Oops", "Please Enter Numeric Id.", "error");
+            return false;
+        }
 
-    if (document.getElementById("productdesc").value.trim() == "") {
-        swal("Oops", "Please Enter Product Description.", "error");
-        return false;
-    }
-
-    let allowImg = /(\.jpg|\.png|\.jpeg|\.gif)/;
-    let productImage = document.getElementById("image").value
-    if (productImage == "") {
-        swal("Oops", "Please Select Product Image", "error");
-        return false;
-    } else if (!allowImg.exec(productImage)) {
-        swal("Oops", "Please Enter Valid Image (.jpg,.png,.jpeg,.gif)", "error");
-        return false;
-    }
-
-    let data1=localStorage.getItem(document.getElementById("productid").value);
-    if (data1){
-        swal("Oops", "You Can not insert this data because this key is alredy exist.", "error");
-        return false;
-    }
-    return true;
-    
-}
-
-// function for validation at update time
-function updatevalidation() {
-    if (document.getElementById("productname").value.trim() == "") {
-        swal("Oops", "Please Enter Product Name.", "error");
-        return false;
-    } else if (!/^[a-zA-Z]+$/.test(document.getElementById("productname").value)) {
-        swal("Oops", "Please Enter Valid Product Name.", "error");
-        return false;
-    }
-
-    const price = document.getElementById("productprice").value
-    if (price.trim() == "") {
-        swal("Oops", "Please Enter Product Price.", "error");
-        return false;
-    } else if (isNaN(price)) {
-        swal("Oops", "Please Enter Valid Price.", "error");
-        return false;
-    }
-
-    if (document.getElementById("productdesc").value.trim() == "") {
-        swal("Oops", "Please Enter Product Description.", "error");
-        return false;
-    }
-
-    let allowImg = /(\.jpg|\.png|\.jpeg|\.gif)/;
-    let productImage = document.getElementById("image").value
-    if (productImage) {
-        if (!allowImg.exec(productImage)) {
+        let allowImg = /(\.jpg|\.png|\.jpeg|\.gif)/;
+        let productImage = document.getElementById("image").value
+        if (productImage == "") {
+            swal("Oops", "Please Select Product Image", "error");
+            return false;
+        } else if (!allowImg.exec(productImage)) {
             swal("Oops", "Please Enter Valid Image (.jpg,.png,.jpeg,.gif)", "error");
             return false;
         }
+    } else {
+        let allowImg = /(\.jpg|\.png|\.jpeg|\.gif)/;
+        let productImage = document.getElementById("image").value
+        if (productImage) {
+            if (!allowImg.exec(productImage)) {
+                swal("Oops", "Please Enter Valid Image (.jpg,.png,.jpeg,.gif)", "error");
+                return false;
+            }
+        }
+    }
+
+    if (document.getElementById("productname").value.trim() == "") {
+        swal("Oops", "Please Enter Product Name at insert time.", "error");
+        return false;
+    } else if (!/^[a-zA-Z]+$/.test(document.getElementById("productname").value)) {
+        swal("Oops", "Please Enter Valid Product Name.", "error");
+        return false;
+    }
+    const price = document.getElementById("productprice").value
+    if (price.trim() == "") {
+        swal("Oops", "Please Enter Product Price.", "error");
+        return false;
+    } else if (isNaN(price)) {
+        swal("Oops", "Please Enter Valid Price.", "error");
+        return false;
+    }
+
+    if (document.getElementById("productdesc").value.trim() == "") {
+        swal("Oops", "Please Enter Product Description.", "error");
+        return false;
     }
     return true;
 }
