@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crud Operation</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- sweetalert CSS -->
+    <link rel='stylesheet' href='css/sweetalert2.min.css'>
+</head>
+
+<body>
+    <h3 class="text-center">Crud Operation</h3>
+
+    <section class="mt-5">
+        <div class="container">
+            <form class="form-data mx-auto" id="form" name="form" enctype="multipart/form-data">
+
+                <div class="form-group pb-4" id="uniqueid">
+                    <label for="" class="pb-2">Product Id</label>
+                    <input type="text" name="productid" id="productid" placeholder="Enter Product Id" class="form-control">
+                    <span id="iderr" style="color: red;"></span>
+                </div>
+
+                <div class="form-group pb-4">
+                    <label for="" class="pb-2">Product Name</label>
+                    <input type="text" name="" id="productname" placeholder="Enter Product Name" class="form-control">
+                    <span id="nameerr" style="color: red;"></span>
+                </div>
+
+
+                <div class="form-group pb-4">
+                    <label for="" class="pb-2">Price</label>
+                    <input type="text" name="" id="productprice" placeholder="Enter Product Price" class="form-control">
+                    <span id="priceerr" style="color: red;"></span>
+                </div>
+                <div class="form-group">
+                    <label for="" class="pb-2">Description</label>
+                    <textarea name="" id="productdesc" cols="30" rows="5"  class="form-control"></textarea>
+                    <span id="descerr" style="color: red;"></span>
+                </div>
+               
+                <div class="row pt-4">
+                    <div class="form-group col-md-12">
+                        <div>
+                            <label for="" class="pb-2">Upload Image</label>
+                            <input type="file" name="" id="image" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <img src="" alt="" class="d-none my-4" style="width: 300px;" id="productimage">
+
+                <div class="text-center mt-4">
+                    <button class="btn btn-primary" type="button" id="btnsubmit">Submit</button>
+                </div>
+
+                <div class="text-center mt-4  d-none" id="updatebtnclass">
+                    <button class="btn btn-primary" type="button" id="updatebtn">Update</button>
+                    <button class="btn btn-primary ms-3" type="button" id="backbtn">Go Back</button>
+                </div>
+
+            </form>
+
+            <table border="1" class="table table-responsive mt-5" id="maintable">
+                <thead>
+                    <th>Product Id</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Product Image</th>
+                    <th>Action</th>
+                </thead>
+                <tbody id="tabledata">
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Js -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+    <!-- sweetalert JS -->
+    <script src="js/sweetalert.min.js"></script>
+
+</body>
+
+</html>
